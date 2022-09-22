@@ -33,7 +33,7 @@ unsigned char ledOut = LOW;
 
 unsigned long duration;
 float distance;
-int thresh = 10;
+int thresh = 10;    // Setting the operating distance(10cm)
 
 void setup() {  
   // initialize the LED pin as an output:
