@@ -93,7 +93,7 @@ Triger:
 
 External circuit diagram that connects MCU pins to peripherals(sensor/actuator)
 
-<img src="https://user-images.githubusercontent.com/113574284/191644106-1f9ae194-6756-404d-9404-b0183d32f452.png" width="500" height="400" />
+![image](https://user-images.githubusercontent.com/113574284/191644106-1f9ae194-6756-404d-9404-b0183d32f452.png)
 
 ##           
 
@@ -120,6 +120,10 @@ External circuit diagram that connects MCU pins to peripherals(sensor/actuator)
 #### 
 
 #### Overview
+
+**Mealy FSM Diagram**
+
+![image](https://user-images.githubusercontent.com/113574284/191646900-c00d3f10-6362-4001-a82e-e886d67faf74.png)
 
 **Mealy FSM Table**
 
