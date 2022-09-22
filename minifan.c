@@ -1,20 +1,11 @@
-#include "STM32TimerInterrupt.h"
-#include "STM32_ISR_Timer.h"
-
 // State definition
 #define S0    0   // Fan OFF
 #define S1    1   // Fan vel = 50%
 #define S2    2   // Fan vel = 100%
 
-#define HW_TIMER_INTERVAL_MS  100
-#define TIMER_INTERVAL        1000L
-
 // Address number of output in array
 #define PWM 0
 #define LED 1
-
-STM32Timer ITimer(TIM1);    // Init STM32 timer TIM1
-STM32_ISR_Timer ISR_Timer;  // Init STM32_ISR_Timer
 
 // State table definition
 typedef struct {
@@ -42,7 +33,7 @@ unsigned char ledOut = LOW;
 
 unsigned long duration;
 float distance;
-int thresh = 5;
+int thresh = 10;
 
 void setup() {  
   // initialize the LED pin as an output:
@@ -60,9 +51,6 @@ void setup() {
 
   // Initialize the echo pin as an input
   pinMode(echoPin, INPUT);
-
-  ITimer.attachInterruptInterval(HW_TIMER_INTERVAL_MS * 1000, TimerHandler);
-  ISR_Timer.setInterval(TIMER_INTERVAL, timerInterrupt);
   
   Serial.begin(9600);
 }
@@ -87,14 +75,18 @@ void loop() {
   pwmOut = FSM[state].out[ input[0] * 2 + input[1] ][0];
   ledOut = FSM[state].out[ input[0] * 2 + input[1] ][1];
   analogWrite(pwmPin, pwmOut);
-  digitalWrite(ledPin, ledOut);
+  if (ledOut == HIGH)
+    digitalWrite(ledPin, !digitalRead(ledPin));
 
+  Serial.print("State = ");
+  Serial.print(state);
+  Serial.print(" Fan Speed = ");
+  Serial.print(pwmOut);
+  Serial.print(" LED = ");
+  Serial.print(ledOut);
   Serial.print("distance = ");
   Serial.print(distance);
   Serial.println(" [cm]");
-  Serial.println(state);
-  Serial.println(pwmOut);
-  Serial.println(ledOut);
   delay(1000);
 }
 
@@ -112,13 +104,4 @@ void nextState(){
     
   // get nextState
   state = FSM[state].next[input[0]];
-}
-
-void TimerHandler(){
-  ISR_Timer.run();
-}
-
-void timerInterrupt(){
-  if (ledOut == HIGH)
-  digitalWrite(ledPin, !digitalRead(ledPin));
 }
