@@ -1,4 +1,3 @@
-# Embedded-controller-Lab1
 ### LAB : Smart mini-fan with STM32-duino
 
 **Date:** 2022.09.22
@@ -94,9 +93,7 @@ Triger:
 
 External circuit diagram that connects MCU pins to peripherals(sensor/actuator)
 
-![image](https://user-images.githubusercontent.com/113574284/191644106-1f9ae194-6756-404d-9404-b0183d32f452.png)
-
-
+<img src="https://user-images.githubusercontent.com/113574284/191644106-1f9ae194-6756-404d-9404-b0183d32f452.png" width="500" height="400" />
 
 ##           
 
